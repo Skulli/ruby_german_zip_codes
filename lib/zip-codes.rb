@@ -8,6 +8,10 @@ module ZipCodes
       db[code]
     end
 
+    def codes(city)
+      db.select {|key, hash| hash[:city] == city}.keys
+    end
+
     def db
       @db ||= begin
         this_file = File.expand_path(File.dirname(__FILE__))
