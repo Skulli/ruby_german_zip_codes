@@ -4,8 +4,8 @@ module ZipCodes
   VERSION = '0.2.1'
 
   class << self
-    def identify(code, like: false)
-      if like
+    def identify(code, like_search: false)
+      if like_search
         like(code)
       else
         db[code]
