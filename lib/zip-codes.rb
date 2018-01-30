@@ -1,7 +1,9 @@
 require 'yaml'
-
 module ZipCodes
   VERSION = '0.2.1'
+
+  require_relative 'zip-codes/city_map'
+  require_relative 'zip-codes/converter'
 
   class << self
     def identify(code, like_search: false)
