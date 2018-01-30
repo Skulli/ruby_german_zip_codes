@@ -19,7 +19,7 @@ module ZipCodes
     end
 
     def like(code)
-      db.select{|key, hash| key.present? && key.starts_with?(code) }
+      db.select{|key, hash| key && key.index(code) == 0 }
     end
 
     def db
