@@ -25,8 +25,8 @@ module ZipCodes
     def db
       @db ||= begin
         this_file = __dir__
-        us_data = File.join(this_file, "data", "DE.yml")
-        YAML.safe_load(File.open(us_data))
+        data = File.join(this_file, "data", "DE.yml")
+        YAML.load(File.open(data))
       end
     end
 
