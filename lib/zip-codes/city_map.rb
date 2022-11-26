@@ -2,7 +2,7 @@ class ZipCodes::CityMap
   attr_accessor :map, :data_file
 
   def initialize(data_file)
-    self.map = Hash.new
+    self.map = ({})
     self.data_file = data_file
   end
 
@@ -19,7 +19,7 @@ class ZipCodes::CityMap
   end
 
   def load!
-    self.map = YAML::load_file(data_file)
+    self.map = YAML.load_file(data_file)
   end
 
   def store!

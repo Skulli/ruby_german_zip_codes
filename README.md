@@ -1,5 +1,9 @@
 # ZipCodes [![Gem Version](https://badge.fury.io/rb/zip-codes.png)](http://badge.fury.io/rb/zip-codes)
 
+<a href="https://github.com/testdouble/standard" target="_blank">
+  <img alt="Ruby Code Style" src="https://img.shields.io/badge/Ruby_Code_Style-standard-brightgreen.svg" />
+</a>
+
 Simple gem to get city, state, and time zone for a given zip code. It has a yaml database bundled with it, so you need several mb of memory for the whole hash.
 
 ## Installation

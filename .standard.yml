@@ -1,0 +1,8 @@
+ruby_version: 3.1.2
+format: progress
+parallel: true
+
+ignore:
+    - Layout/AlignHash
+    - Style/GlobalVars
+

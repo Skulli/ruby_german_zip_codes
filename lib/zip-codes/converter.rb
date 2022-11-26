@@ -27,7 +27,7 @@ class ZipCodes::Converter
   end
 
   def base_file
-    @base ||= File.expand_path(File.dirname(__FILE__))
+    @base ||= __dir__
   end
 
   def default_csv_options
@@ -47,7 +47,7 @@ class ZipCodes::Converter
         osm_id: row[0],
         county: row[3],
         city: row[1],
-        state: row[4],
+        state: row[4]
       }
     )
   end

@@ -1,9 +1,9 @@
-require 'yaml'
+require "yaml"
 module ZipCodes
-  VERSION = '0.2.1'
+  VERSION = "0.2.1"
 
-  require_relative 'zip-codes/city_map'
-  require_relative 'zip-codes/converter'
+  require_relative "zip-codes/city_map"
+  require_relative "zip-codes/converter"
 
   class << self
     def identify(code, like_search: false)
@@ -15,18 +15,18 @@ module ZipCodes
     end
 
     def codes(city)
-      db.select {|key, hash| hash[:city] == city}.keys
+      db.select { |key, hash| hash[:city] == city }.keys
     end
 
     def like(code)
-      db.select{|key, hash| key && key.index(code) == 0 }
+      db.select { |key, hash| key && key.index(code) == 0 }
     end
 
     def db
       @db ||= begin
-        this_file = File.expand_path(File.dirname(__FILE__))
-        us_data = File.join(this_file, 'data', 'DE.yml')
-        YAML.load(File.open(us_data))
+        this_file = __dir__
+        us_data = File.join(this_file, "data", "DE.yml")
+        YAML.safe_load(File.open(us_data))
       end
     end
 
