@@ -17,8 +17,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'
-          bundler: default
+          ruby-version: '3.4'
           bundler-cache: true
 
       - name: Standardrb Check
