@@ -16,7 +16,7 @@ RSpec.describe ZipCodes do
   end
 
   it "exact entry" do
-    expect(described_class.identify("20535")).to eq({city: "Hamburg", code: "20535", county: nil, osm_id: "62782", state: "Hamburg"})
+    expect(described_class.identify("20535")).to eq({city: "Hamburg", code: "20535", county: "Hamburg-Mitte", osm_id: "62782", state: "Hamburg"})
   end
 
   it "exact entry with bezirk" do
