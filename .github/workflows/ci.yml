@@ -18,7 +18,6 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.4'
-          bundler: default
           bundler-cache: true
 
       - name: Standardrb Check
