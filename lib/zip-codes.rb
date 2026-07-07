@@ -14,23 +14,30 @@ module ZipCodes
     end
 
     def codes(city)
-      db.select { |key, hash| hash[:city] == city }.keys
+      city_index.fetch(city, []).dup
     end
 
     def like(code)
-      db.select { |key, hash| key && key.index(code) == 0 }
+      db.select { |key, _| key.start_with?(code) }
     end
 
     def db
-      @db ||= begin
-        this_file = __dir__
-        data = File.join(this_file, "data", "DE.yml")
-        YAML.load(File.open(data))
-      end
+      @db ||= YAML.load_file(
+        File.join(__dir__, "data", "DE.yml"),
+        permitted_classes: [Symbol]
+      )
     end
 
     def load
       db
+    end
+
+    private
+
+    def city_index
+      @city_index ||= db.each_with_object({}) do |(code, data), idx|
+        (idx[data[:city]] ||= []) << code
+      end
     end
   end
 end
