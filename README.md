@@ -4,40 +4,78 @@
   <img alt="Ruby Code Style" src="https://img.shields.io/badge/Ruby_Code_Style-standard-brightgreen.svg" />
 </a>
 
-Simple gem to get city, state, and time zone for a given zip code. It has a yaml database bundled with it, so you need several mb of memory for the whole hash.
+Ruby-Gem zur Suche nach deutschen Postleitzahlen (PLZ). Gibt zu einer PLZ die zugehörige Stadt, den Landkreis bzw. Bezirk und das Bundesland zurück. Der vollständige Datensatz (~8.000 PLZ) ist als YAML-Datei eingebettet und wird beim ersten Zugriff in den Arbeitsspeicher geladen.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+In der `Gemfile` eintragen:
 
-    gem 'zip-codes'
+```ruby
+gem 'zip-codes'
+```
 
-And then execute:
+Dann ausführen:
 
-    $ bundle
+    $ bundle install
 
-Or install it yourself as:
+Oder direkt installieren:
 
     $ gem install zip-codes
 
-## Usage
+## Verwendung
+
+### Exakte Suche
 
 ```ruby
-ZipCodes.identify('30301')
-# => {:state_code=>"GA", :state_name=>"Georgia", :city=>"Atlanta", :time_zone=>"America/New_York"}
-# First run will take a while, as the yaml has to be loaded
+ZipCodes.identify('20535')
+# => { city: "Hamburg", code: "20535", county: "Hamburg-Mitte", osm_id: "62782", state: "Hamburg" }
+
+ZipCodes.identify('99999')
+# => nil
 ```
 
-If you are using Rails, you can load the hash on app startup for production and staging.
+### Präfix-Suche
+
 ```ruby
-# config/initializers/load_zip_codes.rb
+ZipCodes.identify('205', like_search: true)
+# => { "20535" => { city: "Hamburg", ... }, "20537" => { ... }, ... }
+
+# Kurzform:
+ZipCodes.like('205')
+```
+
+### Alle PLZ einer Stadt
+
+```ruby
+ZipCodes.codes('Hamburg')
+# => ["20095", "20097", ..., "22769"]  # 98 Einträge
+```
+
+### Rails: Vorladen beim Start
+
+Damit die YAML-Datei nicht beim ersten Request geparst wird, kann die Datenbank in einem Initializer vorgeladen werden:
+
+```ruby
+# config/initializers/zip_codes.rb
 ZipCodes.load unless Rails.env.development?
 ```
 
-## Contributing
+## Datenfelder
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+| Feld     | Beispiel           | Beschreibung             |
+|----------|--------------------|--------------------------|
+| `code`   | `"20535"`          | PLZ (5-stelliger String) |
+| `city`   | `"Hamburg"`        | Stadt / Gemeinde         |
+| `county` | `"Hamburg-Mitte"`  | Landkreis oder Bezirk    |
+| `state`  | `"Hamburg"`        | Bundesland               |
+| `osm_id` | `"62782"`          | OpenStreetMap-Relation   |
+
+Die Daten basieren auf OpenStreetMap-Daten.
+
+## Mitwirken
+
+1. Fork erstellen
+2. Feature-Branch anlegen (`git checkout -b mein-feature`)
+3. Änderungen committen (`git commit -am 'Feature hinzufügen'`)
+4. Branch pushen (`git push origin mein-feature`)
+5. Pull Request öffnen
