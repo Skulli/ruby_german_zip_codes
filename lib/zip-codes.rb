@@ -14,7 +14,7 @@ module ZipCodes
     end
 
     def codes(city)
-      city_index[city]
+      city_index.fetch(city, []).dup
     end
 
     def like(code)
@@ -35,8 +35,8 @@ module ZipCodes
     private
 
     def city_index
-      @city_index ||= db.each_with_object(Hash.new { |h, k| h[k] = [] }) do |(code, data), idx|
-        idx[data[:city]] << code
+      @city_index ||= db.each_with_object({}) do |(code, data), idx|
+        (idx[data[:city]] ||= []) << code
       end
     end
   end
