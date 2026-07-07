@@ -7,5 +7,6 @@ task :convert do
   converter = ZipCodes::Converter.new("DE", load: false)
   converter.convert
   converter.store!
-  puts "Converted #{converter.map.map.size} zip codes → lib/data/DE.yml"
+  city_map = converter.map
+  puts "Converted #{city_map.map.size} zip codes → lib/data/DE.yml"
 end
