@@ -19,3 +19,9 @@ lib/data/*.txt
 
 # rspec failure tracking
 .rspec_status
+
+# Editor
+.vscode/
+
+# Claude Code
+.claude/
