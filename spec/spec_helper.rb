@@ -1,3 +1,14 @@
+# Abdeckungsmessung nur auf Wunsch: COVERAGE=1 bundle exec rspec
+if ENV["COVERAGE"]
+  require "simplecov"
+  SimpleCov.start do
+    add_filter "/spec/"
+    # Schwelle knapp unter dem Ist-Stand (100 %), damit sie einen Absturz
+    # wirklich faengt. Steigt die Abdeckung dauerhaft, darf sie mitwachsen.
+    minimum_coverage 95
+  end
+end
+
 require "bundler/setup"
 require "zip-codes"
 

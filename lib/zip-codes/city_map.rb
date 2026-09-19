@@ -29,10 +29,15 @@ class ZipCodes::CityMap
   private
 
   # allow multiple cities for one code
+  #
+  # Beide Seiten werden zerlegt, bevor uniq greift. Der bestehende Wert ist ab
+  # der zweiten Stadt selbst zusammengesetzt ("A;B"); ungeteilt verglichen ist
+  # er ein einziger Eintrag, und uniq erkennt eine erneut gemeldete Stadt dann
+  # nicht wieder. In DE.yml stand so "Koethel" zweimal in derselben Zeile.
   def update_existing(code, data)
     map[code][:city] = [
       *data[:city].to_s.split(";"),
-      map[code][:city]
+      *map[code][:city].to_s.split(";")
     ].uniq.join(";")
   end
 
