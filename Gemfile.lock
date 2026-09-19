@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    zip-codes (0.3.0)
+    zip-codes (0.3.1)
 
 GEM
   remote: https://rubygems.org/
