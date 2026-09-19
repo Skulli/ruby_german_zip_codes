@@ -7,6 +7,21 @@ Versionierung folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ---
 
+## [0.3.1] - 2026-09-19
+
+### Korrigiert
+- **Doppelte Staedte je Postleitzahl.** `CityMap#update_existing` verglich die neue Stadt
+  gegen den bestehenden Wert als Ganzes; ab der zweiten Stadt ist der selbst
+  zusammengesetzt, und `uniq` erkannte eine erneut gemeldete Stadt nicht wieder. In
+  `lib/data/DE.yml` stand dadurch `Schönberg;Rausdorf;Köthel;Köthel;Kasseburg;Hamfelde` —
+  die Zeile ist mitkorrigiert.
+- CI prueft auch Pull Requests, deren Ziel ein Branch mit Schraegstrich ist.
+
+### Hinzugefügt
+- Abdeckungsmessung (`COVERAGE=1`), Untergrenze 95 %. `CityMap` war bisher vollstaendig
+  ungetestet; Abdeckung 75,60 % → 100 %.
+- Release-Workflow nach dem Vorbild aus `ruby_gkv_billing`.
+
 ## [0.3.0] - 2026-07-07
 
 ### Verbessert
